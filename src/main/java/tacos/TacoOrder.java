@@ -9,17 +9,23 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Data
+@Table
 public class TacoOrder implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
+    @Id
     private Long id;
     
     private Date placedAt;
     
     @NotBlank(message="Delivery name is required")
+    @Column("delivery_name") // this is just an example of column annotation usage
     private String deliveryName;
     
     @NotBlank(message="Street is required")

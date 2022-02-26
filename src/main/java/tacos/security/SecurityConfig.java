@@ -39,6 +39,9 @@ public class SecurityConfig {
                 .antMatchers("/", "/**").permitAll()
                 
                 .and()
+                .formLogin()
+                    .loginPage("/login")
+                .and()
                 .build();
     }
 }

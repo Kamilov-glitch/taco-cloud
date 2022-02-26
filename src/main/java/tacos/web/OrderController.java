@@ -13,6 +13,7 @@ import tacos.data.OrderRepository;
 
 import javax.validation.Valid;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import tacos.User;
 
@@ -37,11 +38,10 @@ public class OrderController {
     public String processOrder(
             @Valid TacoOrder order, Errors errors,
             SessionStatus sessionStatus,
-            Authentication authentication) {
+            @AuthenticationPrincipal User user) {
         if (errors.hasErrors()) {
             return "orderForm";
         }
-        User user = (User) authentication.getPrincipal();
         order.setUser(user);
         orderRepo.save(order);
         sessionStatus.setComplete();
